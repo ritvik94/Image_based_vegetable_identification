@@ -1,8 +1,5 @@
 # Image_based_vegetable_identification
 
-Here is a comprehensive `README.md` file tailored to your custom ResNet-18 vegetable classification script.
-
----
 
 # Custom ResNet-18 Vegetable Image Classification
 
