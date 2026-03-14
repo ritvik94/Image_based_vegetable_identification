@@ -31,9 +31,9 @@ The dataset is expected to have the following structure:
 * `Vegetable Images/validation/` (Validation images categorized by folders)
 * `Vegetable Images/test/` (Testing images)
 
-## 🛠️ Usage
+## Usage
 
-### 1. Run the Pipeline
+### Run the Pipeline
 
 Simply execute the Python script. It will sequentially:
 
@@ -44,11 +44,16 @@ Simply execute the Python script. It will sequentially:
 5. Display visual predictions for 5 random validation images.
 
 
-## ⚙️ Model Architecture Details
+## Model Architecture Details
 
 * **Initial Layer:** 7x7 Convolution, Stride 2, MaxPool.
 * **Residual Layers:** 4 main layers containing 2 `ResidualBlock` instances each, with channel dimensions progressively increasing (64 -> 128 -> 256 -> 512).
 * **Output Layer:** Adaptive Average Pooling followed by a Fully Connected Linear layer mapping to the dynamic number of dataset classes.
 * **Weight Initialization:** Kaiming Normal initialization for Conv2d layers; Constant initialization (1 for weights, 0 for biases) for BatchNorm2d layers.
 
+## Model Performance
+After training for 30 epochs, the model was evaluated on the validation set across 15 different vegetable classes. It achieved near-perfect classification metrics:
 
+Accuracy: 99.83%
+
+F1 Score (Weighted): 0.9983
