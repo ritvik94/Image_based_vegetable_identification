@@ -15,7 +15,7 @@ This repository contains a complete pipeline for training, evaluating, and expor
 * **Advanced Data Augmentation:** Integrates the `albumentations` library for high-performance image transformations (Random Resized Cropping, Horizontal Flipping, Normalization).
 * **Training & Logging:** Includes a robust training loop with TensorBoard integration, label smoothing, AdamW optimizer, and StepLR learning rate scheduling.
 * **Comprehensive Evaluation:** Calculates Accuracy, weighted F1 Score, ROC-AUC, and generates a Confusion Matrix.
-* **ONNX Export:** Automatically exports the trained PyTorch model (`.pth`) to the ONNX format (`.onnx`) for production deployment and cross-platform compatibility.
+
 
 ## Prerequisites
 
@@ -34,7 +34,7 @@ The dataset is expected to have the following structure:
 
 * `Vegetable Images/train/` (Training images categorized by folders)
 * `Vegetable Images/validation/` (Validation images categorized by folders)
-* `Vegetable Images/test/` (Testing images - *Note: The script currently evaluates on the validation set*)
+* `Vegetable Images/test/` (Testing images)
 
 ## 🛠️ Usage
 
