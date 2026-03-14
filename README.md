@@ -1,13 +1,11 @@
-# Image_based_vegetable_identification
+# Image based vegetable identification using a built from scratch Resnet-18 model
 
 
-# Custom ResNet-18 Vegetable Image Classification
-
-This repository contains a complete pipeline for training, evaluating, and exporting a custom **ResNet-18** model built entirely from scratch in PyTorch. The model is designed to classify images of various vegetables using the Kaggle Vegetable Image Dataset.
+This repository contains a complete pipeline for training, evaluating, and exporting a **ResNet-18** model built entirely from scratch in PyTorch. The model is designed to classify images of various vegetables using the Kaggle Vegetable Image Dataset.
 
 ## Features
 
-* **Custom ResNet-18 Architecture:** A PyTorch implementation of the ResNet-18 model, including custom `ResidualBlock` and weight initialization, without relying on pre-trained `torchvision` models.
+* **Built from scratch ResNet-18 Architecture:** A PyTorch implementation of the ResNet-18 model, including custom `ResidualBlock` and weight initialization, without relying on pre-trained `torchvision` models.
 * **Automatic Dataset Handling:** Uses `kagglehub` to automatically download and route the dataset.
 * **Advanced Data Augmentation:** Integrates the `albumentations` library for high-performance image transformations (Random Resized Cropping, Horizontal Flipping, Normalization).
 * **Training & Logging:** Includes a robust training loop with TensorBoard integration, label smoothing, AdamW optimizer, and StepLR learning rate scheduling.
