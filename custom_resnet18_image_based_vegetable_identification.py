@@ -28,6 +28,7 @@ from sklearn.model_selection import train_test_split
 import torch.nn.functional as F
 from tqdm.auto import tqdm
 import warnings
+import random
 
 warnings.filterwarnings("ignore")
 
@@ -338,64 +339,10 @@ train_model(model, train_loader, val_loader, criterion, optimizer, scheduler, de
 print("\nEvaluating model on validation set...")
 evaluate_model(model, val_loader, device)
 
-import random
-
 class_names = full_val_dataset.classes
-
-# FIX: Sample from the total length of the dataset instead of .indices
 random_indices = random.sample(range(len(full_val_dataset)), 5)
-
 print("Testing 5 random images from the validation set...\n")
-
 for idx in random_indices:
     image_path = full_val_dataset.data.samples[idx][0]
-
     visualize_prediction(model, image_path, device, class_names)
 
-import torch
-
-# 1. Initialize your model and load the trained weights
-model = ResNet18(num_classes=15)
-model.load_state_dict(torch.load("best_resnet18.pth", weights_only=True))
-model.eval() # Must be in eval mode!
-
-# 2. Create a dummy input tensor that matches your image dimensions
-# Batch Size = 1, Channels = 3 (RGB), Height = 224, Width = 224
-dummy_input = torch.randn(1, 3, 224, 224)
-
-# 3. Export to ONNX
-onnx_file_path = "vegetable_resnet18.onnx"
-
-torch.onnx.export(
-    model,                      # The model being exported
-    dummy_input,                # Model input (or a tuple for multiple inputs)
-    onnx_file_path,             # Where to save the file
-    export_params=True,         # Store the trained parameter weights inside the model file
-    opset_version=11,           # The ONNX version to export the model to
-    do_constant_folding=True,   # Optimize the graph by folding constants
-    input_names=['input'],      # The model's input names
-    output_names=['output'],    # The model's output names
-    dynamic_axes={              # Allow dynamic batch sizes in the future
-        'input': {0: 'batch_size'},
-        'output': {0: 'batch_size'}
-    }
-)
-
-print(f"✅ Successfully exported to {onnx_file_path}")
-
-import os
-
-# The exact folder where the validation tomatoes live
-tomato_val_dir = r"C:\Users\User\.cache\kagglehub\datasets\misrakahmed\vegetable-image-dataset\versions\1\Vegetable Images\validation\Tomato"
-
-# List all the images in that folder and grab the first one (index 0)
-available_images = os.listdir(tomato_val_dir)
-first_image_name = available_images[0]
-
-# Combine the folder path and the image name
-auto_image_path = os.path.join(tomato_val_dir, first_image_name)
-
-print(f"🔍 Testing with actual Kaggle dataset image: {first_image_name}")
-
-# Run the inference!
-predicted_class, conf = verify_onnx_model(auto_image_path)
